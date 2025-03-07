@@ -14,7 +14,8 @@ class PostController extends Controller
     }
 
     public function show(Post $post) {
-        return view('post.single', compact('post'));
+        $content = (new \Parsedown())->text($post->content);
+        return view('post.single', compact('post', 'content'));
     }
 
     public function create(Post $post) {
@@ -54,7 +55,7 @@ class PostController extends Controller
         // Create post using mass assignment
         $post->update($validatedAttrs);
 
-        return redirect()->route('blog')->with('success', 'Post updated successfully!');
+        return redirect()->route('post.show', $post->id)->with('success', 'Post updated successfully!');
 
     }
 

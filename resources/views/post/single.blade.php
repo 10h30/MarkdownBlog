@@ -37,7 +37,9 @@
   
         <!-- Post Content -->
         <div class="text-gray-700 leading-relaxed space-y-4">
-          {!! nl2br(e($post->content)) !!}
+         {{--  {!! nl2br(e($post->content)) !!} --}}
+          {!! $content !!}
+
         </div>
         
       </article>
