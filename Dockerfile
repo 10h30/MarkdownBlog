@@ -8,12 +8,16 @@ RUN composer install --no-dev --optimize-autoloader
 FROM php:8.4-fpm-alpine
 
 # Install dependencies
-RUN apk --no-cache add \
+RUN apk add --no-cache \
     curl \
     unzip \
     git \
+    sqlite-libs \
     sqlite \
-    libsqlite3-dev \
+    oniguruma-dev \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    freetype-dev \
     && docker-php-ext-install pdo pdo_sqlite
 
 # Set working directory
