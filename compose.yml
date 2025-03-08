@@ -1,0 +1,28 @@
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    restart: always
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: production
+    depends_on:
+      - caddy
+
+  caddy:
+    image: caddy:latest
+    container_name: caddy_server
+    restart: always
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./public:/var/www/html/public
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
