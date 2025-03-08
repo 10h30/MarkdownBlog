@@ -1,6 +1,6 @@
 services:
   app:
-    image: ghcr.io/10h30/markdownblog:latest
+    build: .
     container_name: markdownblog
     restart: always
     volumes:
@@ -22,6 +22,7 @@ services:
       - ./public:/var/www/html/public
       - caddy_data:/data
       - caddy_config:/config
+
 
 volumes:
   caddy_data:
