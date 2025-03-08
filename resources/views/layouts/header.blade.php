@@ -11,7 +11,7 @@
         <ul class="flex space-x-6">
           <li><a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Home</a></li>
           <li><a href="{{ route('blog') }}" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Blog</a></li>
-          <li><a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">About</a></li>
+          {{-- <li><a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">About</a></li> --}}
           <li><a href="{{ route('contact') }}" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Contact</a></li>
          <!-- Dropdown Menu Item -->
          @auth

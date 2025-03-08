@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -31,7 +32,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::view('/about', 'about')->name('about');
-Route::view('/contact', 'contact')->name('contact');
+
+Route::get('/contact', [ContactController::class, 'edit'] )->name('contact');
+Route::post('/contact', [ContactController::class, 'store'] );
+
 
 
 Route::middleware('auth')->group(function () {
