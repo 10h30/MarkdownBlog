@@ -2,8 +2,8 @@
     <div class="px-6 max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center">
       <!-- Logo & Site Description -->
       <div class="mb-4 md:mb-0 text-center md:text-left">
-        <a href="{{ route('home') }}"><h1 class="text-2xl font-bold text-gray-800">Site Title</h1></a>
-        <p class="text-sm text-gray-600">Your site description goes here</p>
+        <a href="{{ route('home') }}"><h1 class="text-2xl font-bold text-gray-800">{{ config('settings.site_title') }}</h1></a>
+        <p class="text-sm text-gray-600">{{ config('settings.site_description') }}</p>
       </div>
       
       <!-- Navigation -->
