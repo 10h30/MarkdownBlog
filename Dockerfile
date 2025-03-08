@@ -31,4 +31,4 @@ ENV APP_ENV=production
 EXPOSE 9000
 
 # Start PHP-FPM server
-CMD ["php-fpm"]
+CMD php artisan serve --host=0.0.0.0 --port=8000
