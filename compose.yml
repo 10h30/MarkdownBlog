@@ -1,12 +1,16 @@
 services:
   app:
-    build: .
+    image: ghcr.io/10h30/markdownblog:latest
     container_name: markdownblog
     restart: always
     volumes:
-      - .:/var/www/html
+      - ./storage:/var/www/storage
+      - ./database/database.sqlite:/var/www/database/database.sqlite
     environment:
-      APP_ENV: production
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - DB_CONNECTION=sqlite
+      - DB_DATABASE=/var/www/storage/database.sqlite
     depends_on:
       - caddy
 
@@ -15,11 +19,11 @@ services:
     container_name: caddy_server
     restart: always
     ports:
-      - "8080:80"
+      - "80:80"
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./public:/var/www/html/public
+      - ./storage:/var/www/html/storage
       - caddy_data:/data
       - caddy_config:/config
 
