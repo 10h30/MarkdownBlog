@@ -1,4 +1,4 @@
-FROM php:8.4-fpm
+FROM php:8.2-fpm
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -30,15 +30,24 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www-data:www-data . /var/www
 
+# Create and configure .env file
+RUN cp .env.example .env
+
 # Install dependencies
 RUN composer install --optimize-autoloader --no-dev
 
-# Generate application key
-RUN php artisan key:generate
+# Create SQLite database
+RUN touch database/database.sqlite && \
+    chown -R www-data:www-data database && \
+    chmod -R 775 database
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www
 RUN chmod -R 775 /var/www/storage
 
+# Add entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 9000
-CMD ["php-fpm"]
+ENTRYPOINT ["/entrypoint.sh"]
