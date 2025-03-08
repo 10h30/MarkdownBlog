@@ -1,7 +1,7 @@
 services:
   app:
-    image: image: ghcr.io/10h30/markdownblog:latest
-    container_name: laravel_app
+    image: ghcr.io/10h30/markdownblog:latest
+    container_name: markdownblog
     restart: always
     volumes:
       - .:/var/www/html
