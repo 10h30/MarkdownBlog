@@ -1,6 +1,9 @@
-:80 {
+http://laravel.thuanbui.me {
     root * /var/www/public
     php_fastcgi app:9000
     encode gzip
     file_server
+    header {
+        Content-Security-Policy upgrade-insecure-requests
+    }
 }
