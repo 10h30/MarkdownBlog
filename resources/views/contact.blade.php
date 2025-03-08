@@ -1,3 +1,5 @@
 <x-app-layout>
+    <x-slot:heading>Contact Page</x-slot:heading>
+
     <h1>Contact Page</h1>
-    </x-app-layout>
+</x-app-layout>
