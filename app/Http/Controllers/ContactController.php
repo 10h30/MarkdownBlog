@@ -21,7 +21,7 @@ class ContactController extends Controller
             'content' => 'required|min:20'
         ]);
         Mail::to('dummyemail@email.com')
-            ->send(new NewContact($validatedAttrs));
+            ->queue(new NewContact($validatedAttrs));
         //dd($validatedAttrs);
         return redirect()->back()->with('success', 'Thank you contacting me! I will get back to you after 1 year, maybe');
 

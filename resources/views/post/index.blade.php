@@ -31,6 +31,8 @@
                       {{ $post->title }}
                   </a>
               </h2>
+
+              <!-- Post Meta -->
               <div class="text-gray-500 text-sm flex flex-col">
                 {{-- <span>Author: {{ $post->user->name }}</span> --}}
                 <div class="flex gap-2 item-center">
@@ -47,7 +49,6 @@
                   <span>Updated: {{ $post->updated_at->format('Y/m/d') }}</span>
                 </div>
                 @endif
-
               </div>
               <!-- Post Excerpt (First 50 characters) -->
               <div class="text-gray-600 text-base">
