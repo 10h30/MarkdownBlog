@@ -131,10 +131,10 @@ class PostController extends Controller
                 if (empty($post->slug)) {
                     $post->slug = Str::slug($post->title);
                     $post->save();
-                    dump(Str::slug($post->title));
+                    //dump(Str::slug($post->title));
                 }
             }
         });
-            return 'Done';
+            return 'Done. All the slugs is now generated';
     }
 }
