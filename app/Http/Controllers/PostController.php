@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -15,7 +16,8 @@ class PostController extends Controller
         return view('post.index', compact('posts','categories'));
     }
 
-    public function show(Post $post) {
+    public function show($slug) {
+        $post = Post::where('slug', $slug)->firstorFail();
         $content = (new \Parsedown())->text($post->content);
         return view('post.single', compact('post', 'content'));
     }
@@ -35,6 +37,7 @@ class PostController extends Controller
 
         // Add the authenticated user's ID
         $validatedAttrs['user_id'] = Auth::id();
+        
         //dd($validatedAttrs);
         // Create post using mass assignment
         $post = Post::create($validatedAttrs);
@@ -77,9 +80,6 @@ class PostController extends Controller
             'new_categories' => 'string|nullable'
         ]);
 
-        // Add the authenticated user's ID
-        //$validatedAttrs['user_id'] = Auth::id();
-        //dd($validatedAttrs);
 
         // Update post using mass assignment
         $post->update([
@@ -87,7 +87,7 @@ class PostController extends Controller
             'content' => $validatedAttrs['content']
         ]);
 
-        // Removes old and add new one
+        // Removes old and add new categories
         if (isset($validatedAttrs['categories'])) {
             $post->categories()->sync($validatedAttrs['categories']);
         } else {
@@ -111,8 +111,8 @@ class PostController extends Controller
                 }
             }
         }
-
-        return redirect()->route('post.show', $post->id)->with('success', 'Post updated successfully!');
+       
+        return redirect()->route('post.show', $post->slug)->with('success', 'Post updated successfully!');
 
     }
 
@@ -120,5 +120,17 @@ class PostController extends Controller
         $name=$post->title;
         $post->delete();
         return redirect()->route('blog')->with('success', "Post \"$name\" deleted successfully!");
+    }
+
+    public function update_slugs() {
+        //Get all posts
+        $posts = Post::all();
+        //dd($post);
+        foreach ($posts as $post) {
+            if (empty($post->slug)) {
+                $post->slug = Str::slug($post->title);
+                $post->save();
+            }
+        }
     }
 }

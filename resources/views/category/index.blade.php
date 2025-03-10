@@ -1,10 +1,5 @@
 <x-app-layout>
     <x-slot:heading>Blog Page</x-slot:heading>
-    <x-slot name="header">
-        <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Blog') }}
-        </h1>
-    </x-slot>
     
     <div class="max-w-screen-xl mx-auto">
         @if (session('success'))
@@ -12,7 +7,6 @@
             {{ session('success') }}
         </div>
         @endif
-
 
         <!-- Create new post button for auth user -->
         <x-button-create-post />
@@ -24,7 +18,7 @@
             <div class="bg-white border border-gray-200 rounded-lg shadow-md p-6 flex flex-col gap-4">
               <!-- Post Title -->
               <h2 class="text-xl font-bold mb-2">
-                  <a href="{{ route('post.show', $post->slug) }}" class="text-blue-600 hover:underline">
+                  <a href="{{ route('post.show', $post->id) }}" class="text-blue-600 hover:underline">
                       {{ $post->title }}
                   </a>
               </h2>

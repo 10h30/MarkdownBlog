@@ -18,11 +18,11 @@ Route::get('/dashboard', function () {
 Route::get('/blog', [PostController::class, 'index'] )->name('blog');
 Route::get('/post/create', [PostController::class, 'create'] )->middleware(['auth', 'verified'])->name('post.create');
 Route::post('/post/create', [PostController::class, 'store'] )->middleware(['auth', 'verified']);
-Route::get('/post/{post}', [PostController::class, 'show'] )->name('post.show');;
+Route::get('/post/{slug}', [PostController::class, 'show'] )->name('post.show');;
 Route::get('/post/{post}/edit', [PostController::class, 'edit'])->middleware(['auth', 'verified'])->name('post.edit');
 Route::patch('/post/{post}', [PostController::class, 'update'])->middleware(['auth', 'verified'])->name('post.update');
 Route::delete('/post/{post}', [PostController::class, 'destroy'])->middleware(['auth', 'verified'])->name('post.delete');
-
+Route::get('/update-slugs', [PostController::class, 'update_slugs'])->middleware(['auth', 'verified']);
 
 
 Route::middleware('auth')->group(function () {
