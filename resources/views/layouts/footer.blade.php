@@ -1,10 +1,10 @@
 <footer class="text-white bg-slate-900 py-8">
       <div class="gap-y-6 max-w-6xl mx-auto px-5 flex flex-col md:flex-row flex-wrap justify-between mb-8">
-        <div class="left w-2/3">
+        <div class="w-full md:w-2/3">
           <h3 class="text-xl font-semibold text-white/70">About Me</h3>
           <div class="text-white/50">This is my playground to document my Laravel learning progress</div>
         </div>
-        <div class="right w-1/3">
+        <div class="w-full md:w-1/3">
           <h3 class="text-xl font-semibold text-white/70">Quick Link</h3>
           <div>
             <ul class="space-y-2">
