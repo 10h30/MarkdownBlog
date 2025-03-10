@@ -21,4 +21,7 @@
     h6 {
         @apply text-sm font-medium text-gray-600 mb-2;
     }
+    pre {
+        @apply whitespace-pre overflow-x-scroll text-sm bg-slate-100 p-6;
+    }
 }
