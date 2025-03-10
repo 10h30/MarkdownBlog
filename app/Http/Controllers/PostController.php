@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,8 @@ class PostController extends Controller
 {
     public function index() {
         $posts = Post::with('user')->latest()->Paginate(20);
-        return view('post.index', compact('posts'));
+        $categories = Category::orderBy('name')->get();
+        return view('post.index', compact('posts','categories'));
     }
 
     public function show(Post $post) {
@@ -19,13 +21,16 @@ class PostController extends Controller
     }
 
     public function create(Post $post) {
-        return view('post.create');
+        $categories = Category::orderBy('name')->get();
+        return view('post.create', compact('categories'));
     }
 
     public function store() {
         $validatedAttrs = request()->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string|min:20'
+            'content' => 'required|string|min:20',
+            'categories' => 'array|nullable',
+            'new_categories' => 'string|nullable'
         ]);
 
         // Add the authenticated user's ID
@@ -34,26 +39,78 @@ class PostController extends Controller
         // Create post using mass assignment
         $post = Post::create($validatedAttrs);
 
+         // Attach existing categories
+        if (!empty($validatedAttrs['categories'])) {
+            $post->categories()->attach($validatedAttrs['categories']);
+        }
+
+        if (!empty($validatedAttrs['new_categories'])) {
+            $categoryNames = array_map('trim', explode(',',$validatedAttrs['new_categories']));
+            foreach ($categoryNames as $categoryName) {
+                        // Check if category already exists or create it
+                        $category = Category::firstOrCreate(['name' => $categoryName]);
+
+                        //Attach to post if not already attached
+                        if (!$post->categories->contains($category->id)) {
+                            $post->categories()->attach($category->id);
+                        }
+
+            }
+        }
+    
+
         return redirect()->route('blog')->with('success', 'Post created successfully!');
 
     }
 
     public function edit(Post $post) {
-        return view('post.edit', compact('post'));
+        $categories = Category::orderBy('name')->get();
+        return view('post.edit', compact('post','categories'));
     }
 
 
     public function update(Post $post) {
         $validatedAttrs = request()->validate([
             'title' => 'required|string|max:255',
-            'content' => 'required|string|min:20'
+            'content' => 'required|string|min:20',
+            'categories' => 'array|nullable',
+            'new_categories' => 'string|nullable'
         ]);
 
         // Add the authenticated user's ID
-        $validatedAttrs['user_id'] = Auth::id();
+        //$validatedAttrs['user_id'] = Auth::id();
         //dd($validatedAttrs);
-        // Create post using mass assignment
-        $post->update($validatedAttrs);
+
+        // Update post using mass assignment
+        $post->update([
+            'title' => $validatedAttrs['title'],
+            'content' => $validatedAttrs['content']
+        ]);
+
+        // Removes old and add new one
+        if (isset($validatedAttrs['categories'])) {
+            $post->categories()->sync($validatedAttrs['categories']);
+        } else {
+            // If no categories were selected, detach all
+            $post->categories()->detach();
+        }
+    
+        // Process new categories if provided
+        if (!empty($validatedAttrs['new_categories'])) {
+            $categoryNames = array_map('trim', explode(',', $validatedAttrs['new_categories']));
+            
+            foreach ($categoryNames as $categoryName) {
+                if (!empty($categoryName)) {
+                    // Check if category already exists or create it
+                    $category = Category::firstOrCreate(['name' => $categoryName]);
+                    
+                    // Attach to post if not already attached
+                    if (!$post->categories->contains($category->id)) {
+                        $post->categories()->attach($category->id);
+                    }
+                }
+            }
+        }
 
         return redirect()->route('post.show', $post->id)->with('success', 'Post updated successfully!');
 
