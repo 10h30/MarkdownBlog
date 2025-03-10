@@ -124,13 +124,17 @@ class PostController extends Controller
 
     public function update_slugs() {
         //Get all posts
-        $posts = Post::all();
-        //dd($post);
-        foreach ($posts as $post) {
-            if (empty($post->slug)) {
-                $post->slug = Str::slug($post->title);
-                $post->save();
+        Post::withoutEvents(function () {
+            $posts = Post::all();
+            //dd($posts);
+            foreach ($posts as $post) {
+                if (empty($post->slug)) {
+                    $post->slug = Str::slug($post->title);
+                    $post->save();
+                    dump(Str::slug($post->title));
+                }
             }
-        }
+        });
+            return 'Done';
     }
 }
