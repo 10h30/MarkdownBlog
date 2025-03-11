@@ -29,6 +29,7 @@ Route::patch('/post/{post}', [PostController::class, 'update'])->middleware(['au
 Route::delete('/post/{post}', [PostController::class, 'destroy'])->middleware(['auth', 'verified'])->name('post.delete');
 Route::get('/update-slugs', [PostController::class, 'update_slugs'])->middleware(['auth', 'verified']);
 
+Route::post('/comment', [CommentController::class,'store']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

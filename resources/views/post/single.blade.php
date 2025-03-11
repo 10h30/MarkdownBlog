@@ -46,6 +46,9 @@
         
       </article>
 
+      <x-single-post-comment />
+      
+
       
 
     </div>
