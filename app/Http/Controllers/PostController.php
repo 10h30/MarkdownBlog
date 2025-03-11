@@ -12,8 +12,8 @@ class PostController extends Controller
 {
     public function index() {
         $posts = Post::latest()->with('categories','user')->Paginate(20);
-        $categories = Category::orderBy('name')->get();
-        return view('post.index', compact('posts','categories'));
+        
+        return view('post.index', compact('posts'));
     }
 
     public function show($slug) {

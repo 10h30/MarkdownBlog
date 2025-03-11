@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -8,12 +9,16 @@ use Illuminate\Mail\Markdown;
 use Illuminate\Support\Facades\Route;
 
 
+
 Route::get('/', [PostController::class, 'index'] )->name('home');
 
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/category/{category:name}', CategoryController::class)->name('category');
 
 Route::get('/blog', [PostController::class, 'index'] )->name('blog');
 Route::get('/post/create', [PostController::class, 'create'] )->middleware(['auth', 'verified'])->name('post.create');
@@ -35,7 +40,6 @@ Route::view('/about', 'about')->name('about');
 
 Route::get('/contact', [ContactController::class, 'edit'] )->name('contact');
 Route::post('/contact', [ContactController::class, 'store'] );
-
 
 
 Route::middleware('auth')->group(function () {
