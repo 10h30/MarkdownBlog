@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 class PostController extends Controller
 {
     public function index() {
-        $posts = Post::with('user')->latest()->Paginate(20);
+        $posts = Post::latest()->with('categories','user')->Paginate(20);
         $categories = Category::orderBy('name')->get();
         return view('post.index', compact('posts','categories'));
     }
