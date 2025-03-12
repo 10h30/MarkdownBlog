@@ -45,9 +45,10 @@
         </div>
         
       </article>
+      <div>
+        <x-single-post-comment :post="$post" />
+      </div>
 
-      <x-single-post-comment />
-      
 
       
 

@@ -12,28 +12,23 @@
       <h1 class="text-2xl font-bold text-gray-900 mb-6">Create New Blog Post</h1>
 
       <!-- Blog Post Form -->
-      <form action="/post/create" method="POST">
-        @csrf
-        <!-- Title Input -->
-        <div class="mb-4">
-          <x-input-label for="title" value="Title" />
-          <x-text-input type="text" id="title" name="title" value="{{ old('title') }}" required placeholder="Enter your blog post title"/>
-      <x-form-error name="title"></x-form-error>
-        </div>
-
+  
+      <x-form method="POST">
+        <x-form-input name="title" label="Title" required placeholder="Enter your blog post title" />
+       
          <!-- Categories Section -->
          <div class="mb-4">
-          <x-input-label value="Categories" />
+          <label class="block text-gray-700 font-medium mb-2">Categories</label>
           <!-- Existing Categories - With Empty State -->
           @if(count($categories) > 0)
-              <div class="mb-3">
+              <div class="mb-6">
                   <p class="text-sm text-gray-600 mb-2">Select existing categories:</p>
                   <div class="max-h-40 overflow-y-auto p-3 border border-gray-300 rounded-lg">
                     @foreach ($categories as $category )
                     <input type="checkbox" id="{{ $category->id }}" name="categories[]" value="{{ $category->id }}" 
                     {{ (is_array(old('categories')) &&  in_array($category->id, old('categories'))) ? 'checked' : '' }} >
                     <label for="{{ $category->id }}">{{ $category->name }}</label><br>
-                  @endforeach
+                    @endforeach
                   </div>
               </div>
           @endif
@@ -47,26 +42,21 @@
                       Add new categories (comma separated):
                   @endif
               </p>
-              <x-text-input type="text" id="new_categories" name="new_categories" value="{{ old('new_categories') }}" required placeholder="Technology, Programming, Laravel..."/>
-              <p class="text-xs text-gray-500 mt-1">Separate multiple categories with commas</p>
-              <x-form-error name="new_categories"></x-form-error>
-          </div>
+              <x-form-input name="new_categories" label="New Categories"  value="{{ old('new_categories') }}"  placeholder="Technology, Programming, Laravel..." />
+               <p class="text-xs text-gray-500 mt-1">Separate multiple categories with commas</p>
+           </div>
           </div>
         
         <!-- Content Input -->
-        <div class="mb-4">
-          <x-input-label value="Blog Content" for="content" />
-          <textarea id="content" name="content" required rows="6"
-            class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="Write your blog content here...">{{ old('content') }} </textarea>
-            <x-form-error name="content"></x-form-error>
-        </div>
+        <x-form-textarea name="content" label="Content" required />
+
 
         <!-- Submit Button -->
         <div class="flex justify-end">
           <x-primary-button>Publish Post</x-primary-button>
         </div>
-      </form>
+      </x-form>
+
     </div>
 
       <!-- Back Button -->
@@ -76,4 +66,12 @@
         </a>
       </div>
   </div>
+{{-- 
+  <x-forms.form>
+    <x-forms.input type="text" name="title" label="Title" />
+    <x-forms.select name="categories" label="Select Categories"></x-forms.select>
+
+    <x-forms.textarea name="content" label="Content" />
+    <x-forms.button>Submit</x-forms.button>
+  </x-forms.form> --}}
 </x-app-layout>
