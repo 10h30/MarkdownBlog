@@ -1,6 +1,6 @@
 <div class="bg-white p-10 shadow-md mt-20">
 <form action="/comment" method="POST">
-
+    @csrf
       <!-- Name -->
       <div class="mb-4">
         <label for="title" class="block text-gray-700 font-medium">Comment</label>

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot:heading>Blog Page</x-slot:heading>
    
-        <h1 class="font-semibold text-4xl text-black text-center">
+        <h1 class="font-semibold text-4xl mb-10 text-black text-center">
             @if (request()->routeIs('blog') || request()->routeIs('home'))
                 {{ __('Blog') }}
             @elseif (request()->routeIs('category'))

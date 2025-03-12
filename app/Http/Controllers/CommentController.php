@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request) 
+    public function store() 
     {
         dd("Comment done");
     }

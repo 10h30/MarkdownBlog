@@ -16,17 +16,14 @@
         @csrf
         <!-- Title Input -->
         <div class="mb-4">
-          <label for="title" class="block text-gray-700 font-medium">Title</label>
-          <input type="text" id="title" name="title" value="{{ old('title') }}" required
-            class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="Enter your blog post title">
-          <x-form-error name="title"></x-form-error>
+          <x-input-label for="title" value="Title" />
+          <x-text-input type="text" id="title" name="title" value="{{ old('title') }}" required placeholder="Enter your blog post title"/>
+      <x-form-error name="title"></x-form-error>
         </div>
 
          <!-- Categories Section -->
          <div class="mb-4">
-          <label class="block text-gray-700 font-medium mb-2">Categories</label>
-          
+          <x-input-label value="Categories" />
           <!-- Existing Categories - With Empty State -->
           @if(count($categories) > 0)
               <div class="mb-3">
@@ -41,9 +38,6 @@
               </div>
           @endif
 
-
-
-
           <!-- Add New Categories -->
           <div class="{{ count($categories) == 0 ? 'mt-0' : 'mt-4' }}">
               <p class="text-sm text-gray-600 mb-2">
@@ -53,19 +47,15 @@
                       Add new categories (comma separated):
                   @endif
               </p>
-              <input type="text" id="new_categories" name="new_categories" value="{{ old('new_categories') }}"
-                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                  placeholder="Technology, Programming, Laravel...">
+              <x-text-input type="text" id="new_categories" name="new_categories" value="{{ old('new_categories') }}" required placeholder="Technology, Programming, Laravel..."/>
               <p class="text-xs text-gray-500 mt-1">Separate multiple categories with commas</p>
               <x-form-error name="new_categories"></x-form-error>
           </div>
-      </div>
-      
-
+          </div>
         
         <!-- Content Input -->
         <div class="mb-4">
-          <label for="content" class="block text-gray-700 font-medium">Content</label>
+          <x-input-label value="Blog Content" for="content" />
           <textarea id="content" name="content" required rows="6"
             class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Write your blog content here...">{{ old('content') }} </textarea>
@@ -74,12 +64,8 @@
 
         <!-- Submit Button -->
         <div class="flex justify-end">
-          <button type="submit"
-            class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">
-            Publish Post
-          </button>
+          <x-primary-button>Publish Post</x-primary-button>
         </div>
-
       </form>
     </div>
 
