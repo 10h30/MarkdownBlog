@@ -25,8 +25,8 @@
         @foreach ($posts as $post )
             <x-post-entry :post="$post" />
         @endforeach
-          
-    
         </div>
+          <!-- Pagination Links -->
+          <div class="mt-10">{{ $posts->links() }}</div>
       </div>
 </x-app-layout>
