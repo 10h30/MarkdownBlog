@@ -31,7 +31,10 @@ Route::patch('/post/{post}', [PostController::class, 'update'])->middleware(['au
 Route::delete('/post/{post}', [PostController::class, 'destroy'])->middleware(['auth', 'verified'])->name('post.delete');
 Route::get('/update-slugs', [PostController::class, 'update_slugs'])->middleware(['auth', 'verified']);
 
-Route::post('/{post}/comment', [CommentController::class,'store'])->name('comment');
+Route::post('/{post}/comment', [CommentController::class,'store'])
+    ->name('comment.post');
+Route::post('/{post}/{comment}/reply', [CommentController::class, 'reply'])
+    ->name('comment.reply');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
