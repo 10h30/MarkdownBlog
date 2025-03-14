@@ -15,7 +15,7 @@ class CategoryController extends Controller
     {
         // Find posts belong to the category
         //dd($category);
-        $posts = $category->posts;
+        $posts = $category->posts()->paginate(6);
         return view('post.index', compact('posts','category'));
     }
 }
