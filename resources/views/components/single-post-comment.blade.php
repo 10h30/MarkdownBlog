@@ -2,7 +2,7 @@
 
 @if ($post->comments->count() > 0)
     <h2 class="text-3xl mt-20">{{ $post->comments->count()  }} Comments</h2>
-    @include('comment-display', ['comments' => $post->comments])
+    @include('comment-display', ['comments' => $post->comments->whereNull('parent_id')])
 @else
     <h2 class="text-3xl mt-20">No comments yet</h2>
 @endif
