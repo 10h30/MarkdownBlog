@@ -61,14 +61,4 @@
     
     </div>
 </x-app-layout>
-<script>
-  function toggleReplyForm(formID)    {
-      const form = document.getElementById(formID);
-      console.log(formID);
-      if (form.style.display === 'none' || form.style.display === '') {
-      form.style.display = 'block';
-      } else {
-      form.style.display = 'none';
-      }
-  }
-</script>    
+ 
