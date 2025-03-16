@@ -45,12 +45,30 @@
         </div>
         
       </article>
+
+      <!-- Post Comment -->
       <div>
-        <x-single-post-comment :post="$post" />
+        @if ($post->comments->count() > 0)
+          <h2 class="text-3xl mt-20">{{ $post->comments->count()  }} Comments</h2>
+           @include('post.comment-display', ['comments' => $post->comments->whereNull('parent_id')])
+        @else
+            <h2 class="text-3xl mt-20">No comments yet</h2>
+        @endif
+        {{-- @include('post.single-post-comment' , ['post' => $post ]); --}}
       </div>
 
-
-      
-
+      @include('post.comment-form', ['post' => $post])
+    
     </div>
 </x-app-layout>
+<script>
+  function toggleReplyForm(formID)    {
+      const form = document.getElementById(formID);
+      console.log(formID);
+      if (form.style.display === 'none' || form.style.display === '') {
+      form.style.display = 'block';
+      } else {
+      form.style.display = 'none';
+      }
+  }
+</script>    

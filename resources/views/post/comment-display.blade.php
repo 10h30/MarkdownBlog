@@ -24,17 +24,21 @@
                 </div>
                 @if ($comment->replies)
                     <div class="replies ml-4">
-                        @include('comment-display', ['comments' => $comment->replies])
+                        @include('post.comment-display', ['comments' => $comment->replies])
                     </div>
-                    {{-- @foreach ($comment->replies as $comment)   
-                        <div class="replies bg-white p-10 shadow-md mt-10 ml-10">
-                            <div class="font-semibold text-xl">{{ $comment->username }}</div>
-                            <div class="text-xs text-gray-600">{{ $comment->created_at->format('Y/m/d')  }}</div>
-                            <div class="my-10">{{ $comment->content }};</div>
-                        </div>
-                    @endforeach --}}
+              
 
                 @endif
-           {{--  @endif --}}
         
-        @endforeach
+@endforeach
+<script>
+    function toggleReplyForm(formID)    {
+        const form = document.getElementById(formID);
+        console.log(formID);
+        if (form.style.display === 'none' || form.style.display === '') {
+        form.style.display = 'block';
+        } else {
+        form.style.display = 'none';
+        }
+    }
+  </script>   
