@@ -12,17 +12,11 @@
       <h1 class="text-2xl font-bold text-gray-900 mb-6">Edit Blog Post</h1>
 
       <!-- Blog Post Form -->
-      <form action="/post/{{ $post->id }}" method="POST">
-        @csrf
-        @method('PATCH')
+      <x-form method="PATCH" action="/post/{{ $post->id }}" >
+
         <!-- Title Input -->
-        <div class="mb-4">
-          <label for="title" class="block text-gray-700 font-medium">Title</label>
-          <input type="text" id="title" name="title" value="{{ $post->title }}" required
-            class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="Enter your blog post title">
-          <x-form-error name="title"></x-form-error>
-        </div>
+        <x-form-input name="title" label="Title" required value="{{ $post->title }}"  placeholder="Enter your blog post title" />
+    
 
                  <!-- Categories Section -->
                  <div class="mb-4">
@@ -66,23 +60,16 @@
               
 
         <!-- Content Input -->
-        <div class="mb-4">
-          <label for="content" class="block text-gray-700 font-medium">Content</label>
-          <textarea id="content" name="content" required rows="6"
-            class="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            placeholder="Write your blog content here...">{{ $post->content }} </textarea>
-            <x-form-error name="content"></x-form-error>
-        </div>
+
+        <x-form-textarea name="content" label="Content" required :value="$post->content" />
 
         <!-- Submit Button -->
         <div class="flex justify-end">
-          <button type="submit"
-            class="bg-blue-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">
-            Update Post
-          </button>
+          <x-primary-button>Update Post</x-primary-button>
         </div>
-
-      </form>
+      
+        
+      </x-form>
     </div>
 
       <!-- Back Button -->

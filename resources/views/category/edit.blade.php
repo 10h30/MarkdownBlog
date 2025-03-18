@@ -11,8 +11,7 @@
     <div class="bg-white border border-gray-200 rounded-lg shadow-md p-6">
       <h1 class="text-2xl font-bold text-gray-900 mb-6">Edit Category</h1>
 
-        <x-form method="POST" action="{{ route('category.update', $category) }}">
-            @method('PATCH')
+        <x-form method="PATCH" action="{{ route('category.update', $category) }}">
             <x-form-input name="name" label="Category Name" value="{{ $category->name }}" required />
             <x-form-textarea name="description" label="Desciprtion" rows="5" :value="$category->description"/>
             <x-primary-button>Update Category</x-primary-button>
