@@ -20,7 +20,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/category/{category:name}', CategoryController::class)->name('category');
+Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category');
+Route::get('/update-category-slugs', [CategoryController::class, 'update_slugs'])->middleware(['auth', 'verified']);
+
 
 Route::get('/blog', [PostController::class, 'index'] )->name('blog');
 Route::get('/post/create', [PostController::class, 'create'] )->middleware(['auth', 'verified'])->name('post.create');
