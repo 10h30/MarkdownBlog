@@ -20,7 +20,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category');
+Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.show');
+Route::get('/category/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit')->middleware(['auth', 'verified']);
+Route::patch('/category/{category}', [CategoryController::class, 'update'])->name('category.update')->middleware(['auth', 'verified']);
 Route::get('/update-category-slugs', [CategoryController::class, 'update_slugs'])->middleware(['auth', 'verified']);
 
 

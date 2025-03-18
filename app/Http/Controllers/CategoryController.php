@@ -21,6 +21,28 @@ class CategoryController extends Controller
         return view('post.index', compact('posts','category'));
     }
 
+    public function edit(Category $category)
+    {
+        return view('category.edit', compact('category'));
+    }
+
+    public function update(Category $category)
+    {
+        $validatedAttrs = request()->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable',
+        ]);
+
+        // Update post using mass assignment
+        $category->update([
+            'name' => $validatedAttrs['name'],
+            'description' => $validatedAttrs['description']
+        ]);
+
+        return redirect()->route('category.show', $category->slug)->with('success', 'Category updated successfully!');
+
+    }
+
     public function update_slugs() {
         //Get all posts
         Category::withoutEvents(function () {

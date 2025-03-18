@@ -1,14 +1,20 @@
 <x-app-layout>
     <x-slot:heading>Blog Page</x-slot:heading>
    
-        <h1 class="font-semibold text-4xl mb-10 text-black text-center">
-            @if (request()->routeIs('blog') || request()->routeIs('home'))
-                {{ __('Blog') }}
-            @elseif (request()->routeIs('category'))
-                {{ $category->name }}
-            @endif
-        </h1>
-
+        
+        @if (request()->routeIs('blog') || request()->routeIs('home'))
+            <h1 class="font-semibold text-4xl mb-5 text-black text-center">
+                    {{ __('Blog') }}
+            </h1>
+            @elseif (request()->routeIs('category.show'))
+            <h1 class="font-semibold text-4xl mb-5 text-black text-center">
+               {{ $category->name }}
+            </h1>
+            <div class="text-center mb-10"> {{ $category->description }}</div>
+            @auth
+                <p class="text-xs text-center"><a href="{{ route('category.edit', $category->id) }}">Edit Category</a></p>
+            @endauth
+        @endif
     
     <div class="max-w-screen-xl mx-auto">
         @if (session('success'))
